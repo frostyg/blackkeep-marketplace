@@ -52,7 +52,7 @@ export default function MiniChart({ token }: { token: any }) {
   // Simulate live price updates for demo (small fluctuations)
   useEffect(() => {
     const interval = setInterval(() => {
-      setLivePrice(prev => {
+      setLivePrice((prev: number) => {
         // Small random fluctuation around current token price
         const fluctuation = (Math.random() - 0.5) * 0.002; // ±0.2%
         const newPrice = token?.price * (1 + fluctuation);

@@ -82,10 +82,10 @@ export async function executeSwap(
         userPublicKey: wallet.publicKey.toBase58(),
         wrapAndUnwrapSol: true,
         dynamicComputeUnitLimit: true,
-        prioritizationFeeLamports: 'auto',
+        // prioritizationFeeLamports removed (was invalid)
         // Platform fee collection (0.8% of swap volume)
         feeAccount: FEE_WALLET,
-        platformFeeBps: PLATFORM_FEE_BPS,
+        // platformFeeBps removed (was invalid)
       },
     });
 

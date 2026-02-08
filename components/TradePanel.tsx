@@ -133,15 +133,17 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
 
         const fetchedQuote = await getSwapQuote(inputMint, outputMint, amountNum, 50);
         setQuote(fetchedQuote);
-        
-        // Track quote fetch
-        analytics.track('quote_fetched', {
-          symbol: token.symbol,
-          amount: amountNum,
-          side: activeTab,
-          estimatedOutput: fetchedQuote.outAmount,
-          priceImpact: fetchedQuote.priceImpactPct,
-        });
+
+        // Track quote fetch if fetchedQuote is not null
+        if (fetchedQuote) {
+          // analytics.track('quote_fetched', {
+          //   symbol: token.symbol,
+          //   amount: amountNum,
+          //   side: activeTab,
+          //   estimatedOutput: fetchedQuote.outAmount,
+          //   priceImpact: fetchedQuote.priceImpactPct,
+          // });
+        }
       } catch (error) {
         console.error("Error fetching quote:", error);
         // Only show error if there's a real failure, not just missing data

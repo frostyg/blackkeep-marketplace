@@ -110,14 +110,14 @@ export default function SafetyCheckPanel({ token }: { token: any }) {
           localStorage.setItem(`vote_${token.mint}`, vote);
           
           // Track vote event
-          analytics.track('vote_cast', {
-            symbol: token.symbol,
-            vote: vote,
-            mint: token.mint,
-            hasWallet: !!wallet?.publicKey,
-            pumpVotes: data.pumps,
-            dumpVotes: data.dumps,
-          });
+          // analytics.track('vote_cast', {
+          //   symbol: token.symbol,
+          //   vote: vote,
+          //   mint: token.mint,
+          //   hasWallet: !!wallet?.publicKey,
+          //   pumpVotes: data.pumps,
+          //   dumpVotes: data.dumps,
+          // });
           
           // Refresh accuracy after voting
           fetchAccuracy();
