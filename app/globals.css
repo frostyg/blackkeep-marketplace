@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900 antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    letter-spacing: -0.01em;
+    /* Scale down the app to 80% so 90% browser zoom looks normal */
+    transform: scale(0.8);
+    transform-origin: top left;
+    width: 125vw; /* Compensate for scale so content doesn't get cut off */
+    height: 125vh;
+  }
+
+  * {
+    @apply border-gray-300;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-thumb-slate-700 {
+    scrollbar-color: rgb(203 213 225) transparent;
+  }
+
+  /* Custom scrollbar for webkit browsers */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 2px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(148 163 184);
+  }
+
+  /* Price flash animations */
+  @keyframes flash-green {
+    0%, 100% { background-color: transparent; }
+    50% { background-color: rgba(16, 185, 129, 0.3); }
+  }
+
+  @keyframes flash-red {
+    0%, 100% { background-color: transparent; }
+    50% { background-color: rgba(255, 0, 128, 0.3); }
+  }
+
+  .animate-flash-green {
+    animation: flash-green 0.6s ease-in-out;
+  }
+
+  .animate-flash-red {
+    animation: flash-red 0.6s ease-in-out;
+  }
+
+  /* Pulse animation for safety score */
+  @keyframes pulse-scale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .animate-pulse-scale {
+    animation: pulse-scale 2s ease-in-out infinite;
+  }
+
+  /* Fade in up animation for live feed items */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.5s ease-out;
+  }
+}
+
+/* Wallet adapter override styles */
+.wallet-adapter-button {
+  @apply bg-gradient-to-r from-[#10b981] to-[#059669] hover:shadow-lg hover:shadow-[#10b981]/50 text-[#0A0E27] font-bold rounded-xl transition-all;
+}
+
+.wallet-adapter-button-trigger {
+  @apply bg-gradient-to-r from-[#10b981] to-[#059669] hover:shadow-lg hover:shadow-[#10b981]/50;
+}
+
+.wallet-adapter-modal-wrapper {
+  @apply bg-white/95 backdrop-blur-xl;
+}
+
+.wallet-adapter-modal {
+  @apply bg-white border-2 border-gray-200 rounded-2xl;
+}
+
+.wallet-adapter-modal-title {
+  @apply text-gray-900;
+}
+
+.wallet-adapter-modal-list {
+  @apply gap-3;
+}
+
+.wallet-adapter-modal-list-more {
+  @apply text-[#10b981] hover:text-[#059669];
+}
