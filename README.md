@@ -1,20 +1,21 @@
-# 🚀 BlackKeep - Memecoin Trading Terminal
 
-**Safe, fast memecoin trading on Solana.** Trade smarter with built-in safety checks, real-time analytics, and beginner-friendly features.
+# BlackKeep - Memecoin Trading Terminal
+
+Safe, fast memecoin trading on Solana. Trade smarter with built-in safety checks, real-time analytics, and beginner-friendly features.
 
 ![BlackKeep Terminal](https://via.placeholder.com/1200x600/0A0E27/00FFA3?text=BlackKeep+Terminal)
 
-## ✨ Features
+## Features
 
-### 🛡️ **Safety First**
-- **Real-time Safety Scoring** (1-10 scale)
+### Safety First
+- Real-time Safety Scoring (1-10 scale)
 - Automatic rug detection
 - Liquidity verification
 - Holder concentration analysis
 - Contract verification checks
 - Honeypot detection
 
-### 📊 **Smart Trading**
+### Smart Trading
 - Token discovery scanner
 - Live trending feed
 - Price charts & analytics
@@ -22,28 +23,28 @@
 - Market & limit orders
 - Quick percentage buttons
 
-### 👥 **Social Trading**
+### Social Trading
 - Network activity feed
 - Copy trading (coming soon)
 - Friend recommendations
 - Trading squads (coming soon)
 
-### 📱 **Mobile-First Design**
+### Mobile-First Design
 - Responsive on all devices
 - Touch-optimized interface
 - Swipeable tabs
 - Fast, intuitive UX
 
-## 🏗️ Tech Stack
+## Tech Stack
 
-- **Framework:** Next.js 14 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Blockchain:** Solana Web3.js
-- **Wallet:** Solana Wallet Adapter
-- **State:** React Hooks
+- Framework: Next.js 14 (App Router)
+- Language: TypeScript
+- Styling: Tailwind CSS
+- Blockchain: Solana Web3.js
+- Wallet: Solana Wallet Adapter
+- State: React Hooks
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -83,7 +84,7 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 3. Get some Devnet SOL from [SolFaucet](https://solfaucet.com/)
 4. Start trading!
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 blackkeep-memecoin/
@@ -108,7 +109,7 @@ blackkeep-memecoin/
 └── next.config.js
 ```
 
-## 🎨 Customization
+## Customization
 
 ### Colors
 
@@ -135,7 +136,7 @@ Currently using mock data for development. To connect real data:
 2. **Safety Checks:** Integrate with RugCheck or similar API
 3. **Live Feed:** Connect WebSocket for real-time data
 
-## 🔌 API Integration Guide
+## API Integration Guide
 
 ### Jupiter Integration (for real swaps)
 
@@ -174,7 +175,7 @@ Options for implementing real safety checks:
 3. **DexScreener API** - https://dexscreener.com
 4. **Build your own** using on-chain data
 
-## 🚢 Deployment
+## Deployment
 
 ### Vercel (Recommended)
 
@@ -202,7 +203,7 @@ NEXT_PUBLIC_SOLANA_RPC_ENDPOINT=https://api.mainnet-beta.solana.com
 NEXT_PUBLIC_NETWORK=mainnet-beta
 ```
 
-## 📊 Roadmap
+## Roadmap
 
 ### Phase 1: MVP (Current)
 - [x] Core UI/UX
@@ -234,20 +235,20 @@ NEXT_PUBLIC_NETWORK=mainnet-beta
 - [ ] Marketing campaign
 - [ ] User acquisition
 
-## 💰 Revenue Model
+## Revenue Model
 
 - **Free Tier:** 0.8% swap fee (competitive)
 - **Pro Tier ($20/mo):** 0.5% fee + advanced features
 - **Whale Tier ($100/mo):** 0.3% fee + premium support
 
-## 🐛 Known Issues
+## Known Issues
 
 - Mock data only (not connected to real tokens yet)
 - Charts are randomly generated (need real price data)
 - No actual swap execution (Jupiter integration needed)
 - Safety scores are hardcoded (need RugCheck API)
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome! Please:
 
@@ -256,17 +257,17 @@ Contributions welcome! Please:
 3. Make your changes
 4. Submit a pull request
 
-## 📄 License
+## License
 
 MIT License - feel free to use this code for your own projects
 
-## 🆘 Support
+## Support
 
 - **Documentation:** [Coming soon]
 - **Discord:** [Coming soon]
 - **Twitter:** [@blackkeep_sol](https://twitter.com/blackkeep_sol)
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 BlackKeep is in beta. Cryptocurrency trading involves risk. Only invest what you can afford to lose. Always DYOR (Do Your Own Research).
 
@@ -274,6 +275,7 @@ BlackKeep is in beta. Cryptocurrency trading involves risk. Only invest what you
 
 ---
 
-Built with ❤️ for the Solana memecoin community
 
-**Trade Smarter. Not Harder.**
+Built for the Solana memecoin community
+
+Trade Smarter. Not Harder.
