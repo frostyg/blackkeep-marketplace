@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import Confetti from "react-confetti";
 import SafetyCheckPanel from "./SafetyCheckPanel";
-import MiniChart2 from "./MiniChart2";
+import MiniChart from "./MiniChart";
 import { getSwapQuote, executeSwap, SOL_MINT, formatTokenAmount, SwapQuote } from "../utils/jupiterSwap";
 import { analytics } from "../utils/analytics";
 import { transactionHistory } from "../utils/transactionHistory";
@@ -237,7 +237,7 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
 
   if (!token) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-12 h-[calc(100vh-120px)] flex items-center justify-center">
+      <div className="bg-white rounded-xl border border-gray-100 p-12 h-[calc(100vh-120px)] flex items-center justify-center">
         <div className="text-center text-gray-500">
           <div className="text-6xl mb-4">◉</div>
           <p className="text-lg">Select a token to start trading</p>
@@ -315,7 +315,7 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
 
       {/* Mini Portfolio Tracker */}
       {wallet.connected && (
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-4">
+        <div className="bg-white rounded-xl border border-gray-100 p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-black text-gray-900 flex items-center gap-2">
               💼 MY PORTFOLIO
@@ -352,7 +352,7 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
       {/* Token Header and Chart Side by Side */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Token Header */}
-        <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-4">
+        <div className="bg-white rounded-xl border border-gray-100 p-4">
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-3">
               <img 
@@ -411,19 +411,19 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
         </div>
 
         {/* Mini Chart */}
-        <MiniChart2 token={token} />
+        <MiniChart token={token} />
       </div>
 
       {/* Safety Check */}
       <SafetyCheckPanel token={token} />
 
       {/* Trading Card */}
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden">
+      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
         {/* Buy/Sell Tabs */}
         <div className="flex border-b border-gray-200">
           <button
             onClick={() => setActiveTab("buy")}
-            className={`flex-1 py-3 font-bold text-base transition-all ${
+            className={`flex-1 py-2 font-bold text-sm transition-all ${
               activeTab === "buy"
                 ? "text-[#10b981] bg-[#10b981]/10"
                 : "text-gray-500 hover:text-gray-900"
@@ -433,7 +433,7 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
           </button>
           <button
             onClick={() => setActiveTab("sell")}
-            className={`flex-1 py-3 font-bold text-base transition-all ${
+            className={`flex-1 py-2 font-bold text-sm transition-all ${
               activeTab === "sell"
                 ? "text-[#FF0080] bg-[#FF0080]/10"
                 : "text-gray-500 hover:text-gray-900"
@@ -443,12 +443,12 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
           </button>
         </div>
 
-        <div className="p-4">
+        <div className="p-2">
           {/* Order Type */}
-          <div className="flex gap-2 mb-4">
+          <div className="flex gap-1 mb-2">
             <button
               onClick={() => setOrderType("market")}
-              className={`flex-1 py-2 rounded-lg font-semibold transition-all ${
+              className={`flex-1 py-1.5 rounded font-semibold text-xs transition-all ${
                 orderType === "market"
                   ? "bg-gray-100 text-gray-900"
                   : "bg-gray-50 text-gray-500 hover:bg-gray-100"
@@ -458,7 +458,7 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
             </button>
             <button
               onClick={() => setOrderType("limit")}
-              className={`flex-1 py-2 rounded-lg font-semibold transition-all ${
+              className={`flex-1 py-1.5 rounded font-semibold text-xs transition-all ${
                 orderType === "limit"
                   ? "bg-gray-100 text-gray-900"
                   : "bg-gray-50 text-gray-500 hover:bg-gray-100"
@@ -469,11 +469,11 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
           </div>
 
           {/* Amount Input */}
-          <div className="mb-3">
-            <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs text-gray-500">Amount (SOL)</label>
+          <div className="mb-2">
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-[11px] text-gray-500">Amount (SOL)</label>
               {wallet.connected && solBalance !== null && (
-                <span className="text-xs text-gray-400">
+                <span className="text-[11px] text-gray-400">
                   Balance: {solBalance.toFixed(4)} SOL
                 </span>
               )}
@@ -484,78 +484,78 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
                 value={amount}
                 onChange={(e) => handleAmountChange(e.target.value)}
                 placeholder="0.00"
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-xl font-bold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#10b981] transition-all"
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-base font-bold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#10b981] transition-all"
               />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-bold">
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 font-bold text-xs">
                 SOL
               </div>
             </div>
           </div>
 
           {/* Percentage Buttons */}
-          <div className="grid grid-cols-4 gap-2 mb-4">
+          <div className="grid grid-cols-4 gap-1 mb-2">
             <button
               onClick={() => setPercentage(25)}
-              className="py-2 bg-gray-50 hover:bg-gray-200 rounded-lg text-sm font-semibold text-gray-600 transition-all"
+              className="py-1.5 bg-gray-50 hover:bg-gray-200 rounded text-xs font-semibold text-gray-600 transition-all"
             >
               25%
             </button>
             <button
               onClick={() => setPercentage(50)}
-              className="py-2 bg-gray-50 hover:bg-gray-200 rounded-lg text-sm font-semibold text-gray-600 transition-all"
+              className="py-1.5 bg-gray-50 hover:bg-gray-200 rounded text-xs font-semibold text-gray-600 transition-all"
             >
               50%
             </button>
             <button
               onClick={() => setPercentage(75)}
-              className="py-2 bg-gray-50 hover:bg-gray-200 rounded-lg text-sm font-semibold text-gray-600 transition-all"
+              className="py-1.5 bg-gray-50 hover:bg-gray-200 rounded text-xs font-semibold text-gray-600 transition-all"
             >
               75%
             </button>
             <button
               onClick={() => setPercentage(100)}
-              className="py-2 bg-gray-50 hover:bg-gray-200 rounded-lg text-sm font-semibold text-gray-600 transition-all"
+              className="py-1.5 bg-gray-50 hover:bg-gray-200 rounded text-xs font-semibold text-gray-600 transition-all"
             >
               MAX
             </button>
           </div>
 
           {/* Estimated Receive */}
-          <div className="bg-gray-50 rounded-xl p-4 mb-6">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-gray-500">You'll receive</span>
-              <span className="text-sm text-gray-400">
+          <div className="bg-gray-50 rounded-lg p-2 mb-3">
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-xs text-gray-500">You'll receive</span>
+              <span className="text-xs text-gray-400">
                 {isLoadingQuote ? "Loading..." : quote ? "Real-time quote" : "Estimated"}
               </span>
             </div>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-lg font-bold text-gray-900">
               {estimatedReceive} {activeTab === "buy" ? token.symbol : "SOL"}
             </div>
-            <div className="text-sm text-gray-500 mt-1">
+            <div className="text-xs text-gray-500 mt-0.5">
               ≈ ${(parseFloat(estimatedReceive) * (activeTab === "buy" ? token.price : 1)).toFixed(2)}
             </div>
             {quote && (
-              <div className="text-xs text-[#10b981] mt-2">
+              <div className="text-[10px] text-[#10b981] mt-1">
                 Price impact: {quote.priceImpactPct.toFixed(2)}%
               </div>
             )}
             {swapError && (
-              <div className="text-xs text-[#FF0080] mt-2">
+              <div className="text-[10px] text-[#FF0080] mt-1">
                 {swapError}
               </div>
             )}
           </div>
 
           {/* Advanced Settings - Progressive Disclosure */}
-          <details className="mb-6">
-            <summary className="cursor-pointer text-sm text-slate-400 hover:text-slate-600 flex items-center gap-2 mb-2 transition-colors">
+          <details className="mb-3">
+            <summary className="cursor-pointer text-xs text-slate-400 hover:text-slate-600 flex items-center gap-1 mb-1 transition-colors">
               <span>Advanced Settings</span>
               <span>⚙️</span>
             </summary>
-            <div className="mt-3 space-y-4 border-t border-gray-200 pt-4">
+            <div className="mt-2 space-y-2 border-t border-gray-200 pt-2">
               {/* Fee Info */}
-              <div className="space-y-2 text-sm">
-                <div className="text-xs font-semibold text-gray-600 uppercase mb-2">Fee Breakdown</div>
+              <div className="space-y-1 text-xs">
+                <div className="text-[10px] font-semibold text-gray-600 uppercase mb-1">Fee Breakdown</div>
                 <div className="flex justify-between text-gray-500">
                   <span>Network Fee</span>
                   <span className="text-gray-900">~0.00001 SOL</span>
@@ -564,7 +564,7 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
                   <span>Platform Fee (0.8%)</span>
                   <span className="text-gray-900">{amount ? (parseFloat(amount) * 0.008).toFixed(4) : "0"} SOL</span>
                 </div>
-                <div className="flex justify-between font-semibold text-gray-900 pt-2 border-t border-gray-200">
+                <div className="flex justify-between font-semibold text-gray-900 pt-1 border-t border-gray-200">
                   <span>Total Cost</span>
                   <span>{amount ? (parseFloat(amount) * 1.008).toFixed(4) : "0"} SOL</span>
                 </div>
@@ -572,18 +572,18 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
 
               {/* Slippage Settings */}
               <div>
-                <div className="text-xs font-semibold text-gray-600 uppercase mb-2">Slippage Tolerance</div>
-                <div className="flex gap-2">
-                  <button className="flex-1 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm font-semibold text-gray-600 transition-all">
+                <div className="text-[10px] font-semibold text-gray-600 uppercase mb-1">Slippage Tolerance</div>
+                <div className="flex gap-1">
+                  <button className="flex-1 py-1 bg-gray-50 hover:bg-gray-100 rounded text-[10px] font-semibold text-gray-600 transition-all">
                     0.5%
                   </button>
-                  <button className="flex-1 py-2 bg-[#10b981]/10 border border-[#10b981]/30 rounded-lg text-sm font-semibold text-[#10b981] transition-all">
+                  <button className="flex-1 py-1 bg-[#10b981]/10 border border-[#10b981]/30 rounded text-[10px] font-semibold text-[#10b981] transition-all">
                     1%
                   </button>
-                  <button className="flex-1 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm font-semibold text-gray-600 transition-all">
+                  <button className="flex-1 py-1 bg-gray-50 hover:bg-gray-100 rounded text-[10px] font-semibold text-gray-600 transition-all">
                     2%
                   </button>
-                  <button className="flex-1 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm font-semibold text-gray-600 transition-all">
+                  <button className="flex-1 py-1 bg-gray-50 hover:bg-gray-100 rounded text-[10px] font-semibold text-gray-600 transition-all">
                     Custom
                   </button>
                 </div>
@@ -605,12 +605,12 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
 
               {/* Quick Actions */}
               <div>
-                <div className="text-xs font-semibold text-gray-600 uppercase mb-2">Quick Actions</div>
-                <div className="grid grid-cols-2 gap-2">
-                  <button className="py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-xs font-semibold text-gray-600 transition-all">
+                <div className="text-[10px] font-semibold text-gray-600 uppercase mb-1">Quick Actions</div>
+                <div className="grid grid-cols-2 gap-1">
+                  <button className="py-1 bg-gray-50 hover:bg-gray-100 rounded text-[10px] font-semibold text-gray-600 transition-all">
                     Auto Sell at +50%
                   </button>
-                  <button className="py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-xs font-semibold text-gray-600 transition-all">
+                  <button className="py-1 bg-gray-50 hover:bg-gray-100 rounded text-[10px] font-semibold text-gray-600 transition-all">
                     Stop Loss at -20%
                   </button>
                 </div>
@@ -622,7 +622,7 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
           {!wallet.connected ? (
             <button 
               onClick={() => setVisible(true)}
-              className="w-full py-4 bg-[#10b981] hover:bg-[#059669] rounded-xl font-bold text-base text-white transition-all"
+              className="w-full py-2.5 bg-[#10b981] hover:bg-[#059669] rounded-lg font-bold text-sm text-white transition-all"
             >
               CONNECT WALLET
             </button>
@@ -636,7 +636,7 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
               <button
                 onClick={() => setShowConfirm(true)}
                 disabled={!amount || parseFloat(amount) <= 0 || (solBalance !== null && parseFloat(amount) > solBalance)}
-                className={`w-full py-4 rounded-xl font-black text-lg transition-all ${
+                className={`w-full py-2.5 rounded-lg font-black text-base transition-all ${
                   activeTab === "buy"
                     ? "bg-[#10b981] hover:bg-[#059669] text-white disabled:opacity-50 disabled:cursor-not-allowed"
                     : "bg-[#FF0080] hover:bg-[#CC0066] text-white disabled:opacity-50 disabled:cursor-not-allowed"
@@ -651,7 +651,7 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
 
       {/* Recent Trades/Swaps */}
       <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-6">
-        <h3 className="text-lg text-gray-900 mb-4">Recent Trades</h3>
+        <h3 className="text-xl font-semibold text-gray-900 mb-4">Recent Trades</h3>
         <div className="space-y-2">
           {[
             { type: 'buy', amount: '2.5', price: token.price * 0.98, time: '2m ago', size: 'large' },

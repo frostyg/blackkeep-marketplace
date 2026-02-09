@@ -156,16 +156,16 @@ export default function MiniChart({ token }: { token: any }) {
   const isTimeFramePositive = timeFrameChange > 0;
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-4">
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-base font-bold text-gray-900">
+    <div className="bg-white rounded-xl border border-gray-100 p-2">
+      <div className="flex items-center justify-between mb-1">
+        <h3 className="text-sm font-bold text-gray-900">
           Price Chart ({timeFrame})
-          {isLoading && <span className="ml-2 text-xs text-gray-400">Loading...</span>}
+          {isLoading && <span className="ml-1 text-[10px] text-gray-400">Loading...</span>}
         </h3>
-        <div className="flex gap-1 border-b border-gray-200">
+        <div className="flex gap-0.5 border-b border-gray-200">
           <button 
             onClick={() => setTimeFrame("1h")}
-            className={`px-2 py-1 font-semibold text-xs transition-all ${
+            className={`px-1.5 py-0.5 font-semibold text-[10px] transition-all ${
               timeFrame === "1h" 
                 ? "text-[#10b981] border-b-2 border-[#10b981]" 
                 : "text-gray-500 hover:text-gray-900"
@@ -175,7 +175,7 @@ export default function MiniChart({ token }: { token: any }) {
           </button>
           <button 
             onClick={() => setTimeFrame("24h")}
-            className={`px-2 py-1 font-semibold text-xs transition-all ${
+            className={`px-1.5 py-0.5 font-semibold text-[10px] transition-all ${
               timeFrame === "24h" 
                 ? "text-[#10b981] border-b-2 border-[#10b981]" 
                 : "text-gray-500 hover:text-gray-900"
@@ -185,7 +185,7 @@ export default function MiniChart({ token }: { token: any }) {
           </button>
           <button 
             onClick={() => setTimeFrame("7d")}
-            className={`px-2 py-1 font-semibold text-xs transition-all ${
+            className={`px-1.5 py-0.5 font-semibold text-[10px] transition-all ${
               timeFrame === "7d" 
                 ? "text-[#10b981] border-b-2 border-[#10b981]" 
                 : "text-gray-500 hover:text-gray-900"
@@ -196,7 +196,7 @@ export default function MiniChart({ token }: { token: any }) {
         </div>
       </div>
 
-      <div className="relative h-40 bg-gray-50 rounded-xl overflow-hidden">
+      <div className="relative h-32 bg-gray-50 rounded-lg overflow-hidden">
         {/* Timeline labels */}
         <div className="absolute bottom-0 left-0 right-0 flex justify-between px-2 pb-1 text-xs text-gray-400 z-10">
           {timeFrame === "1h" && (
@@ -222,16 +222,7 @@ export default function MiniChart({ token }: { token: any }) {
           )}
         </div>
 
-        {/* Grid lines */}
-        <div className="absolute inset-0">
-          {[0, 25, 50, 75, 100].map((percent) => (
-            <div
-              key={percent}
-              className="absolute left-0 right-0 border-t border-gray-200"
-              style={{ top: `${percent}%` }}
-            />
-          ))}
-        </div>
+        {/* Grid lines removed */}
 
         {/* Chart */}
         <svg
@@ -289,27 +280,27 @@ export default function MiniChart({ token }: { token: any }) {
         </svg>
 
         {/* Current price indicator */}
-        <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm rounded-lg px-2 py-1.5 border border-gray-200 shadow-lg">
-          <div className="text-[10px] text-gray-500 mb-0.5 flex items-center gap-1">
+        <div className="absolute top-1 left-1 bg-white/90 backdrop-blur-sm rounded px-1.5 py-1 border border-gray-200 shadow">
+          <div className="text-[9px] text-gray-500 mb-0.5 flex items-center gap-0.5">
             Current Price
-            <span className="w-1.5 h-1.5 bg-[#10b981] rounded-full animate-pulse"></span>
+            <span className="w-1 h-1 bg-[#10b981] rounded-full animate-pulse"></span>
           </div>
-          <div className="text-sm font-bold text-gray-900">
+          <div className="text-xs font-bold text-gray-900">
             ${livePrice < 0.01 ? livePrice.toFixed(8) : livePrice.toFixed(4)}
           </div>
-          <div className={`text-xs font-bold ${isTimeFramePositive ? "text-[#10b981]" : "text-[#FF0080]"}`}>
+          <div className={`text-[10px] font-bold ${isTimeFramePositive ? "text-[#10b981]" : "text-[#FF0080]"}`}> 
             {isTimeFramePositive ? "+" : ""}{timeFrameChange.toFixed(2)}%
           </div>
         </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-3 mt-3">
+      <div className="grid grid-cols-3 gap-1 mt-2">
         <div className="text-center">
-          <div className="text-[10px] text-gray-500 mb-0.5">
+          <div className="text-[9px] text-gray-500 mb-0.5">
             {timeFrame === "1h" ? "1h Volume" : timeFrame === "24h" ? "24h Volume" : "7d Volume"}
           </div>
-          <div className="font-bold text-xs text-gray-900">
+          <div className="font-bold text-[11px] text-gray-900">
             ${timeFrame === "7d" 
               ? (token.volume24h * 7 / 1000000).toFixed(1) 
               : timeFrame === "1h"
@@ -318,18 +309,18 @@ export default function MiniChart({ token }: { token: any }) {
           </div>
         </div>
         <div className="text-center">
-          <div className="text-[10px] text-gray-500 mb-0.5">
+          <div className="text-[9px] text-gray-500 mb-0.5">
             {timeFrame === "1h" ? "1h High" : timeFrame === "24h" ? "24h High" : "7d High"}
           </div>
-          <div className="font-bold text-xs text-[#10b981]">
+          <div className="font-bold text-[11px] text-[#10b981]">
             ${(token.price * (1 + Math.abs(timeFrameChange) / 100)).toFixed(4)}
           </div>
         </div>
         <div className="text-center">
-          <div className="text-[10px] text-gray-500 mb-0.5">
+          <div className="text-[9px] text-gray-500 mb-0.5">
             {timeFrame === "1h" ? "1h Low" : timeFrame === "24h" ? "24h Low" : "7d Low"}
           </div>
-          <div className="font-bold text-xs text-[#FF0080]">
+          <div className="font-bold text-[11px] text-[#FF0080]">
             ${(token.price * (1 - Math.abs(timeFrameChange) / 100)).toFixed(4)}
           </div>
         </div>

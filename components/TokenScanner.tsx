@@ -832,8 +832,40 @@ const MOCK_TOKENS = [
 export default function TokenScanner({ selectedToken, onSelectToken }: TokenScannerProps) {
   const [filter, setFilter] = useState<"all" | "new" | "hot" | "verified">("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [tokens, setTokens] = useState(MOCK_TOKENS);
+  const [tokens, setTokens] = useState<any[]>([]);
   const [loadingSafety, setLoadingSafety] = useState(false);
+
+  // Fetch token list from Jupiter API on mount
+  useEffect(() => {
+    const fetchJupiterTokens = async () => {
+      try {
+        const response = await fetch("https://token.jup.ag/strict");
+        if (!response.ok) throw new Error("Jupiter API error");
+        const jupTokens = await response.json();
+        // Map Jupiter tokens to expected format
+        const mappedTokens = jupTokens.map((t: any) => ({
+          symbol: t.symbol,
+          name: t.name,
+          mint: t.address,
+          logoURI: t.logoURI,
+          decimals: t.decimals,
+          price: t.price || 0,
+          change24h: t.priceChange24h || 0,
+          volume24h: t.volume24h || 0,
+          marketCap: t.marketCap || 0,
+          safetyScore: t.safetyScore || 0,
+          liquidity: t.liquidity || 0,
+          holders: t.holders || 0,
+          age: t.age || 0,
+        }));
+        setTokens(mappedTokens);
+      } catch (error) {
+        console.error("Error fetching Jupiter tokens:", error);
+        setTokens(MOCK_TOKENS);
+      }
+    };
+    fetchJupiterTokens();
+  }, []);
 
   // Fetch real safety scores in background (doesn't block UI)
   useEffect(() => {
@@ -841,7 +873,7 @@ export default function TokenScanner({ selectedToken, onSelectToken }: TokenScan
       setLoadingSafety(true);
       
       // Update tokens one by one to avoid rate limits
-      for (const token of MOCK_TOKENS) {
+      for (const token of tokens) {
         try {
           // Fetch DexScreener data
           const dexData = await getDexScreenerToken(token.mint);
@@ -893,10 +925,11 @@ export default function TokenScanner({ selectedToken, onSelectToken }: TokenScan
       setLoadingSafety(false);
     };
 
-    // Start fetching data after component mounts
-    const timer = setTimeout(updateTokenData, 1000);
-    return () => clearTimeout(timer);
-  }, []);
+    // Start fetching data after tokens are loaded
+    if (tokens.length > 0) {
+      updateTokenData();
+    }
+  }, [tokens]);
 
   // Auto-refresh prices every 30 seconds
   useEffect(() => {
@@ -963,10 +996,10 @@ export default function TokenScanner({ selectedToken, onSelectToken }: TokenScan
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-6 h-[calc(100vh-20px)] flex flex-col">
+    <div className="bg-white rounded-xl border border-gray-100 p-6 h-[calc(100vh-20px)] flex flex-col">
       {/* Title */}
       <h2 className="text-xl font-semibold text-gray-900 mb-4">
-        TOKENS
+        Tokens
       </h2>
       
       {/* Filters */}
@@ -1039,12 +1072,11 @@ export default function TokenScanner({ selectedToken, onSelectToken }: TokenScan
           </div>
         ) : filteredTokens.length === 0 && !solToken ? (
           <div className="text-center py-12">
-            <div className="text-6xl mb-4">🔍</div>
-            <p className="text-slate-400">No tokens found</p>
+            <p className="text-slate-400 text-lg mb-2">No tokens found</p>
             <p className="text-sm text-slate-500">Try a different search</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-1">
             {/* SOL Token - Featured */}
             {solToken && (
               <TokenCard
@@ -1086,15 +1118,17 @@ function FilterChip({ active, onClick, children }: any) {
 
 function TokenCard({ token, isSelected, onClick }: any) {
   const getSafetyColor = (score: number) => {
-    if (score >= 8) return "text-[#10b981]";
-    if (score >= 6) return "text-yellow-400";
-    return "text-[#FF0080]";
+    if (score >= 8) return "text-[#10b981]"; // Green
+    if (score >= 6) return "text-yellow-400"; // Yellow
+    if (score >= 4) return "text-orange-400"; // Orange
+    return "text-red-500"; // Red
   };
 
   const getSafetyBg = (score: number) => {
-    if (score >= 8) return "bg-[#10b981]/10 border-[#10b981]/30";
-    if (score >= 6) return "bg-yellow-400/10 border-yellow-400/30";
-    return "bg-[#FF0080]/10 border-[#FF0080]/30";
+    if (score >= 8) return "bg-[#10b981]/10 border-[#10b981]/30"; // Green
+    if (score >= 6) return "bg-yellow-400/10 border-yellow-400/30"; // Yellow
+    if (score >= 4) return "bg-orange-400/10 border-orange-400/30"; // Orange
+    return "bg-red-500/10 border-red-500/30"; // Red
   };
 
   const handleClick = () => {
@@ -1112,10 +1146,10 @@ function TokenCard({ token, isSelected, onClick }: any) {
   return (
     <div
       onClick={handleClick}
-      className={`group relative bg-white hover:bg-gray-50 rounded-xl p-3 cursor-pointer transition-all duration-300 border-2 hover:shadow-xl ${
+      className={`group relative bg-white hover:bg-gray-50 rounded-xl p-3 cursor-pointer transition-all duration-300 border border-gray-100 ${
         isSelected
-          ? "border-[#10b981] shadow-lg"
-          : "border-gray-200 hover:border-[#10b981]/50"
+          ? "border-[#10b981]"
+          : "hover:border-[#10b981]/50"
       }`}
     >
       {/* Glow effect on hover */}
@@ -1180,7 +1214,8 @@ function TokenCard({ token, isSelected, onClick }: any) {
           className={`h-full transition-all ${
             token.safetyScore >= 8 ? "bg-[#10b981]" :
             token.safetyScore >= 6 ? "bg-yellow-400" :
-            "bg-[#FF0080]"
+            token.safetyScore >= 4 ? "bg-orange-400" :
+            "bg-red-500"
           }`}
           style={{ width: `${token.safetyScore * 10}%` }}
         />

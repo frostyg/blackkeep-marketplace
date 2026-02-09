@@ -215,7 +215,7 @@ export default function SafetyCheckPanel({ token }: { token: any }) {
 
   if (isLoading) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-6">
+      <div className="bg-white rounded-xl border border-gray-100 p-6">
         <div className="flex items-center justify-center py-8">
           <div className="text-gray-500">Loading safety data...</div>
         </div>
@@ -290,7 +290,7 @@ export default function SafetyCheckPanel({ token }: { token: any }) {
   ];
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-4 relative overflow-hidden">
+    <div className="bg-white rounded-xl border border-gray-100 p-4 relative overflow-hidden">
       
       {/* Hot Streak Badge */}
       {accuracy?.hasHotStreak && wallet.connected && (
@@ -304,8 +304,8 @@ export default function SafetyCheckPanel({ token }: { token: any }) {
         <div className="flex items-center justify-between mb-3">
           <div className="group relative flex items-center gap-2">
             <img src="/blackkeep shield.png" alt="BlackKeep Shield" className="h-5 w-auto cursor-help" />
-            <h3 className="text-base font-black text-gray-900 cursor-help">
-              SAFETY CHECK
+            <h3 className="text-base text-gray-900 cursor-help">
+              <span className="text-xl font-semibold text-gray-900">Safety Check</span>
             </h3>
             <div className="invisible group-hover:visible absolute left-0 top-6 z-50 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg">
               <div className="font-bold mb-2">Score Breakdown:</div>
@@ -549,7 +549,7 @@ export default function SafetyCheckPanel({ token }: { token: any }) {
 
         {/* Beginner tip for safe tokens */}
         {score >= 8000 && (
-          <div className="mt-1 text-sm font-medium text-[#10b981]">
+          <div className="mt-1 text-sm font-medium text-black">
             Beginner Friendly - This token passes most safety checks. Good for learning, but still volatile. Start with a small amount.
           </div>
         )}

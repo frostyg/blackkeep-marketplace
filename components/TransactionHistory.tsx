@@ -49,8 +49,9 @@ export default function TransactionHistory() {
   const stats = transactionHistory.getStats();
 
   return (
-    <div className="bg-white p-6">
+    <div className="bg-white rounded-xl border border-gray-100 p-6">
       <div className="flex items-center justify-between mb-4">
+        <h3 className="text-xl font-semibold text-gray-900">Recent Trades</h3>
         {transactions.length > 0 && (
           <button
             onClick={() => {
@@ -127,12 +128,9 @@ export default function TransactionHistory() {
             <p className="text-sm text-gray-500 mt-1">Your swap history will appear here</p>
           </div>
         ) : (
-          filteredTransactions.map((tx) => (
-            <div
-              key={tx.id}
-              className="bg-white border border-gray-200 rounded-xl p-4 hover:border-[#10b981]/30 transition-all"
-            >
-              <div className="flex items-start justify-between mb-2">
+          filteredTransactions.map((tx, idx) => (
+            <div key={tx.id} className="py-2">
+              <div className="flex items-start justify-between mb-1">
                 <div className="flex items-center gap-2">
                   <div className={`px-2 py-1 rounded-full text-xs font-bold ${
                     tx.type === 'buy'
@@ -145,36 +143,35 @@ export default function TransactionHistory() {
                 </div>
                 <div className="text-xs text-gray-400">{formatTime(tx.timestamp)}</div>
               </div>
-
-              <div className="space-y-1 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Amount:</span>
-                  <span className="font-semibold text-gray-900">{tx.amount.toFixed(4)} SOL</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Received:</span>
-                  <span className="font-semibold text-gray-900">{tx.estimatedOutput} {tx.type === 'buy' ? tx.tokenSymbol : 'SOL'}</span>
-                </div>
-                {tx.priceImpact !== undefined && (
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Price Impact:</span>
-                    <span className="font-semibold text-gray-900">{tx.priceImpact.toFixed(2)}%</span>
-                  </div>
-                )}
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Fee:</span>
-                  <span className="font-semibold text-gray-900">{tx.fee.toFixed(4)} SOL</span>
-                </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">Amount:</span>
+                <span className="font-semibold text-gray-900">{tx.amount.toFixed(4)} SOL</span>
               </div>
-
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">Received:</span>
+                <span className="font-semibold text-gray-900">{tx.estimatedOutput} {tx.type === 'buy' ? tx.tokenSymbol : 'SOL'}</span>
+              </div>
+              {tx.priceImpact !== undefined && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500">Price Impact:</span>
+                  <span className="font-semibold text-gray-900">{tx.priceImpact.toFixed(2)}%</span>
+                </div>
+              )}
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">Fee:</span>
+                <span className="font-semibold text-gray-900">{tx.fee.toFixed(4)} SOL</span>
+              </div>
               <a
                 href={`https://solscan.io/tx/${tx.txid}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 flex items-center justify-center gap-2 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-xs font-semibold text-gray-600 transition-all"
+                className="mt-2 flex items-center justify-center gap-2 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-xs font-semibold text-gray-600 transition-all"
               >
                 View on Solscan →
               </a>
+              {idx !== filteredTransactions.length - 1 && (
+                <div className="border-b border-gray-100" />
+              )}
             </div>
           ))
         )}

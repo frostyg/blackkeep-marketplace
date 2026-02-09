@@ -153,9 +153,9 @@ export default function LiveFeed() {
   ];
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-6 h-[calc(100vh-20px)] flex flex-col">
+    <div className="bg-white rounded-xl border border-gray-100 p-6 h-[calc(100vh-20px)] flex flex-col">
       <h2 className="text-xl font-semibold text-gray-900 mb-4">
-        LIVE FEED
+        Live Feed
       </h2>
 
       {/* Tabs */}
@@ -222,25 +222,29 @@ export default function LiveFeed() {
       <div className="flex-1 overflow-y-auto space-y-3 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
         {activeTab === "trending" && (
           <>
-            {/* Trending by Votes Section */}
-            {trendingByVotes.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-sm font-bold text-gray-600 mb-3">
-                  Trending by Votes (Last Hour)
-                </h3>
-                <div className="space-y-2">
-                  {trendingByVotes.slice(0, 4).map((token, i) => (
+            {/* Trending by Votes Section - Always show */}
+            <div className="mb-6">
+              <h3 className="text-sm font-bold text-gray-600 mb-3">
+                Trending by Votes (Last Hour)
+              </h3>
+              <div className="space-y-2">
+                {trendingByVotes.length > 0 ? (
+                  trendingByVotes.slice(0, 4).map((token, i) => (
                     <TrendingCard key={token.mint} token={token} index={i} />
-                  ))}
-                </div>
+                  ))
+                ) : (
+                  isLoadingVotes ? (
+                    <div className="text-center py-4 text-gray-400 text-sm">
+                      Loading vote data...
+                    </div>
+                  ) : (
+                    <div className="text-center py-4 text-gray-400 text-sm">
+                      No trending tokens by votes yet.
+                    </div>
+                  )
+                )}
               </div>
-            )}
-
-            {isLoadingVotes && trendingByVotes.length === 0 && (
-              <div className="text-center py-4 text-gray-400 text-sm">
-                Loading vote data...
-              </div>
-            )}
+            </div>
 
             {/* Price Trending Section */}
             <div className="mb-3">
@@ -267,7 +271,7 @@ export default function LiveFeed() {
               return (
                 <div 
                   key={i}
-                  className="bg-white hover:bg-gray-50 rounded-xl p-2.5 cursor-pointer transition-all group border border-gray-200 hover:border-[#10b981]/30 shadow-lg animate-fadeInUp"
+                  className="bg-white hover:bg-gray-50 rounded-xl p-2.5 cursor-pointer transition-all group border border-gray-100 hover:border-[#10b981]/30 animate-fadeInUp"
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
                   <div className="flex items-center justify-between mb-1">

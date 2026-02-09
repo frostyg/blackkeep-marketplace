@@ -230,7 +230,7 @@ NEXT_PUBLIC_NETWORK=mainnet-beta
 - [ ] Leaderboards
 
 ### Phase 5: Launch (Month 3)
-- [ ] $BLACK token
+- [ ] $BKT token
 - [ ] Fee implementation (0.8%)
 - [ ] Marketing campaign
 - [ ] User acquisition

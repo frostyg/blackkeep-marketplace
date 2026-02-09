@@ -9,11 +9,11 @@
     @apply bg-white text-gray-900 antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     letter-spacing: -0.01em;
-    /* Scale down the app to 80% so 90% browser zoom looks normal */
-    transform: scale(0.8);
+    /* Scale down the app to 90% for a slight zoom effect */
+    transform: scale(0.9);
     transform-origin: top left;
-    width: 125vw; /* Compensate for scale so content doesn't get cut off */
-    height: 125vh;
+    width: 112vw; /* Compensate for scale so content doesn't get cut off */
+    height: 112vh;
   }
 
   * {
