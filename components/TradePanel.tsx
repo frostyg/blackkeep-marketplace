@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import Confetti from "react-confetti";
 import SafetyCheckPanel from "./SafetyCheckPanel";
-import MiniChart from "./MiniChart";
+import MiniChart2 from "./MiniChart2";
 import { getSwapQuote, executeSwap, SOL_MINT, formatTokenAmount, SwapQuote } from "../utils/jupiterSwap";
 import { analytics } from "../utils/analytics";
 import { transactionHistory } from "../utils/transactionHistory";
@@ -411,7 +411,7 @@ export default function TradePanel({ token, wallet, connection }: TradePanelProp
         </div>
 
         {/* Mini Chart */}
-        <MiniChart token={token} />
+        <MiniChart2 token={token} />
       </div>
 
       {/* Safety Check */}
